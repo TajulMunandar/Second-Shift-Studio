@@ -35,7 +35,16 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap footer-base">
-        <p>{t('footer.copyright')}</p>
+        <p>
+          {t('footer.poweredBy')}{' '}
+          <a
+            href="https://developerdadakan.com/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Developer Dadakan
+          </a>
+        </p>
         <p>{baseSections}</p>
       </div>
     </footer>

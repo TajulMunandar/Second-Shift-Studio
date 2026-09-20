@@ -201,7 +201,7 @@ export const STRINGS = {
         'Keychain akrilik custom untuk karakter, komunitas, kreator, dan orang yang mau dunia digitalnya ada di dunia nyata.',
       chat: 'Chat WhatsApp',
       navLabel: 'Navigasi footer',
-      copyright: '© 2026 Second Shift Studio',
+      poweredBy: 'Powered by',
     },
     fab: {
       text: 'Mulai pesanan',
@@ -405,7 +405,7 @@ export const STRINGS = {
         'Custom acrylic keychains made for characters, communities, creators, and people who want their digital world to exist IRL.',
       chat: 'Chat on WhatsApp',
       navLabel: 'Footer',
-      copyright: '© 2026 Second Shift Studio',
+      poweredBy: 'Powered by',
     },
     fab: {
       text: 'Start an order',

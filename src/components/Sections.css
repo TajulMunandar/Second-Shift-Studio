@@ -472,6 +472,16 @@ a.social-row:hover .social-go {
   color: #8d8d87;
 }
 
+.footer-base a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-base a:hover {
+  color: #fff;
+}
+
 @media (max-width: 900px) {
   .process-grid {
     grid-template-columns: 1fr;
