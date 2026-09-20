@@ -2,7 +2,14 @@ import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { pick } from '../i18n/translations.js'
 import KeychainFigure from './KeychainFigure.jsx'
 
-export default function ProductCard({ product, selected, onSelect }) {
+export default function ProductCard({
+  product,
+  selected,
+  onSelect,
+  actionLabel,
+  selectedLabel,
+  badgeLabel,
+}) {
   const { lang, t } = useLanguage()
   const id = `make-${product.id}`
   return (
@@ -11,7 +18,11 @@ export default function ProductCard({ product, selected, onSelect }) {
         <span className="work-no" aria-hidden="true">
           {product.no}
         </span>
-        {selected && <span className="sticker sticker-blue work-picked">{t('work.inOrder')}</span>}
+        {selected && (
+          <span className="sticker sticker-blue work-picked">
+            {badgeLabel || t('work.inOrder')}
+          </span>
+        )}
         <KeychainFigure
           variant={product.variant}
           label={`${product.name} — ${pick(product.description, lang)}`}
@@ -44,7 +55,7 @@ export default function ProductCard({ product, selected, onSelect }) {
           onClick={() => onSelect(product)}
           aria-pressed={selected}
         >
-          {selected ? t('work.selected') : t('work.makeThis')}
+          {selected ? selectedLabel || t('work.selected') : actionLabel || t('work.makeThis')}
           {!selected && (
             <span className="arr" aria-hidden="true">
               →

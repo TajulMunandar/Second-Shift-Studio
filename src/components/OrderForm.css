@@ -75,8 +75,7 @@
 
 .form input[type='text'],
 .form input[type='number'],
-.form textarea,
-.select-wrap select {
+.form textarea {
   width: 100%;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -102,22 +101,19 @@
 }
 
 .form input:hover,
-.form textarea:hover,
-.select-wrap select:hover {
+.form textarea:hover {
   background: var(--white);
 }
 
 .form input:focus,
-.form textarea:focus,
-.select-wrap select:focus {
+.form textarea:focus {
   outline: none;
   border-color: var(--blue);
   box-shadow: 0 0 0 3px var(--blue-soft);
   background: var(--white);
 }
 
-.form input[aria-invalid='true'],
-.form select[aria-invalid='true'] {
+.form input[aria-invalid='true'] {
   border-color: #d92d20;
   box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.12);
 }
@@ -159,27 +155,6 @@
 
 .seg-opt:focus-visible {
   outline-offset: -3px;
-}
-
-.select-wrap {
-  position: relative;
-}
-
-.select-wrap::after {
-  content: '▾';
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1.2rem;
-  pointer-events: none;
-  color: var(--blue);
-}
-
-.select-wrap select {
-  appearance: none;
-  padding-right: 2.75rem;
-  cursor: pointer;
 }
 
 .err {

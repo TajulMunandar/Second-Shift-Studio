@@ -29,12 +29,13 @@ export const STRINGS = {
     },
     hero: {
       sticker: 'Keychain akrilik custom',
+      titleLines: ['Keychain', 'Akrilik', 'Custom'],
       sub: 'Keychain custom untuk karakter berikutnya. Kamu bawa avatarnya —',
       subStrong: 'kami bikin jadi bisa dikantongi.',
       ctaWork: 'Lihat produk',
       ctaOrder: 'Buat pesanan',
       metaFinishLabel: 'Hasil akhir',
-      metaFinishValue: 'Gloss dua sisi',
+      metaFinishValue: 'Glossy dua sisi',
       metaSizeLabel: 'Ukuran',
       metaSizeValue: '4–6 cm + custom',
       metaViaLabel: 'Pesan via',
@@ -89,7 +90,7 @@ export const STRINGS = {
         },
         {
           title: 'Kami cetak tajam',
-          text: 'Cetakan detail tinggi disegel di bawah akrilik gloss.',
+          text: 'Cetakan detail tinggi disegel di bawah akrilik glossy.',
         },
         {
           title: 'Dipotong & di-press',
@@ -103,7 +104,7 @@ export const STRINGS = {
     },
     order: {
       kicker: '04 — Pesan',
-      titleA: 'Bikin',
+      titleA: 'Custom',
       titleB: 'keychain-mu.',
       lede: 'Isi form ini, tekan kirim, pesananmu mendarat di WhatsApp kami. Tanpa akun, tanpa labirin checkout.',
       ledeStrong: 'Kirim aja — sisanya urusan kami.',
@@ -184,6 +185,15 @@ export const STRINGS = {
       btn: 'Buat pesanan',
       note: 'Cuma semenit. Dibalas via WhatsApp, oleh manusia.',
     },
+    picker: {
+      title: 'Pilih produk',
+      sub: 'Pilih produk yang mau kamu jadikan keychain.',
+      close: 'Tutup',
+      choose: 'Pilih ini',
+      chosen: 'Terpilih ✓',
+      badge: '✓ Terpilih',
+      triggerPh: 'Pilih produk…',
+    },
     footer: {
       tagA: 'Keychain akrilik custom.',
       tagB: 'Dibuat untuk karakter berikutnya.',
@@ -223,12 +233,13 @@ export const STRINGS = {
     },
     hero: {
       sticker: 'Custom acrylic keychains',
+      titleLines: ['Custom', 'Acrylic', 'Keychains'],
       sub: 'Custom keychains for your next character. You bring the avatar —',
       subStrong: 'we make it pocket-sized.',
       ctaWork: 'See the work',
       ctaOrder: 'Make your own',
       metaFinishLabel: 'Finish',
-      metaFinishValue: 'Double-sided gloss',
+      metaFinishValue: 'Double-sided glossy',
       metaSizeLabel: 'Sizes',
       metaSizeValue: '4–6 cm + custom',
       metaViaLabel: 'Order via',
@@ -283,7 +294,7 @@ export const STRINGS = {
         },
         {
           title: 'We print it sharp',
-          text: 'High-detail print sealed under gloss acrylic.',
+          text: 'High-detail print sealed under glossy acrylic.',
         },
         {
           title: 'Cut & pressed',
@@ -297,7 +308,7 @@ export const STRINGS = {
     },
     order: {
       kicker: '04 — Order',
-      titleA: 'Make your',
+      titleA: 'Custom your',
       titleB: 'keychain.',
       lede: 'Fill this in, hit send, and your order lands in our WhatsApp. No account, no checkout maze.',
       ledeStrong: "Send it — we'll take it from there.",
@@ -377,6 +388,15 @@ export const STRINGS = {
       titleB: 'Make it something you can hold.',
       btn: 'Start an order',
       note: 'Takes a minute. Replies on WhatsApp, human ones.',
+    },
+    picker: {
+      title: 'Choose your drop',
+      sub: 'Pick the drop you want to turn into a keychain.',
+      close: 'Close',
+      choose: 'Choose this',
+      chosen: 'Selected ✓',
+      badge: '✓ Selected',
+      triggerPh: 'Choose a product…',
     },
     footer: {
       tagA: 'Custom acrylic keychains.',

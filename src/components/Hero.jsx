@@ -14,6 +14,8 @@ export default function Hero() {
 
   const tickerItems = t('hero.ticker')
   const tickerText = Array.isArray(tickerItems) ? tickerItems.join(' ★ ') : ''
+  const titleLines = t('hero.titleLines')
+  const lines = Array.isArray(titleLines) ? titleLines : ['Second', 'Shift', 'Studio']
 
   return (
     <section id="top" className={`hero${loaded ? ' is-loaded' : ''}`} aria-label="Intro">
@@ -21,17 +23,21 @@ export default function Hero() {
       <div className="wrap hero-wrap">
         <div className="hero-type">
           <p className="sticker hero-sticker" data-anim="1">
-            <span aria-hidden="true">★</span> {t('hero.sticker')}
+            <span aria-hidden="true">★</span> Second Shift Studio
           </p>
           <h1 className="display hero-title">
             <span className="hero-line" data-anim="2">
-              Second
+              {lines[0]}
             </span>
             <span className="hero-line" data-anim="3">
-              Shift
+              {lines[1]}
             </span>
-            <span className="hero-line hero-line-outline" data-anim="4" aria-label="Studio">
-              Studio
+            <span
+              className="hero-line hero-line-outline"
+              data-anim="4"
+              aria-label={lines[2]}
+            >
+              {lines[2]}
             </span>
           </h1>
           <p className="hero-sub" data-anim="5">
@@ -70,7 +76,7 @@ export default function Hero() {
           </figure>
           <figure className="hero-key alt" aria-hidden="true">
             <KeychainFigure variant="paper" label="" />
-            <figcaption className="sticker hero-tag tag-b">5 × 5 cm</figcaption>
+            <figcaption className="sticker hero-tag tag-b">5 × 2 cm</figcaption>
           </figure>
           <p className="sticker hero-tag tag-c" aria-hidden="true">
             {t('hero.tagHere')}

@@ -38,7 +38,7 @@ export default function KeychainFigure({ variant = 'blue', label = '', className
       <g>
         <rect x="52" y="66" width="116" height="212" rx="26" fill={p.shell} stroke="#111111" strokeWidth="5" />
         <rect x="62" y="76" width="96" height="192" rx="18" fill={p.inner} stroke="#111111" strokeWidth="3" />
-        {/* gloss streak */}
+        {/* glossy streak */}
         <rect x="72" y="86" width="14" height="120" rx="7" fill="#FFFFFF" opacity="0.55" />
       </g>
 

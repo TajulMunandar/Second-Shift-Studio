@@ -1,0 +1,271 @@
+/* ==========================================================================
+   ProductPickerModal — trigger field + fullscreen picker dialog
+   Same family: blue + black border + hard shadow + editorial cards
+   ========================================================================== */
+
+/* --- trigger field (replaces native <select>) --------------------------------- */
+.pp-label {
+  display: block;
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin: 0 0 0.7rem;
+}
+
+.pp-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  min-height: 60px;
+  font-family: var(--font-body);
+  text-align: left;
+  color: var(--ink);
+  background: #f7f7f4;
+  border: 2px solid var(--blue);
+  border-radius: 15px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    transform 120ms ease;
+}
+
+.pp-trigger:hover {
+  background: var(--white);
+}
+
+.pp-trigger:active {
+  transform: scale(0.99);
+}
+
+.pp-trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--blue-soft);
+}
+
+.pp-trigger[aria-invalid='true'] {
+  border-color: #d92d20;
+  box-shadow: 0 0 0 3px rgba(217, 45, 32, 0.12);
+}
+
+.pp-trigger-ph {
+  flex: 1;
+  color: #9a9a94;
+  font-size: 1rem;
+}
+
+.pp-trigger-value {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.pp-trigger-value strong {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.pp-trigger-value small {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.pp-trigger-arrow {
+  flex: none;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--blue);
+  transition: transform 180ms var(--ease-out);
+}
+
+.pp-trigger:hover .pp-trigger-arrow {
+  transform: translateY(3px);
+}
+
+/* --- modal shell ------------------------------------------------------------------ */
+.ppm {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+}
+
+.ppm-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: ppm-fade-in 250ms ease both;
+}
+
+.ppm-viewport {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.ppm-panel {
+  pointer-events: auto;
+  width: min(1400px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 8px 8px 0 var(--ink);
+  outline: none;
+  animation: ppm-panel-in 380ms var(--ease-out) both;
+}
+
+@keyframes ppm-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes ppm-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+}
+
+/* closing — parent delays unmount until this finishes */
+.ppm.is-closing .ppm-backdrop {
+  animation: ppm-fade-out 220ms ease both;
+}
+
+.ppm.is-closing .ppm-panel {
+  animation: ppm-panel-out 220ms ease both;
+}
+
+.ppm.is-closing .ppm-cell {
+  animation: ppm-cell-out 200ms ease both;
+}
+
+@keyframes ppm-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ppm-panel-out {
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+@keyframes ppm-cell-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* --- sticky header -------------------------------------------------------------------- */
+.ppm-head {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem);
+  animation: ppm-head-in 380ms var(--ease-out) 80ms both;
+}
+
+@keyframes ppm-head-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.ppm-title {
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
+  margin-top: 0.6rem;
+}
+
+.ppm-sub {
+  margin-top: 0.5rem;
+  color: #33332f;
+  font-size: 1rem;
+}
+
+.ppm-close {
+  flex: none;
+  font-size: 0.95rem;
+}
+
+.ppm-close span {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* --- product grid (reuses .work-card visuals) ---------------------------------------------- */
+.ppm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  align-items: start;
+}
+
+.ppm-cell {
+  min-width: 0;
+  animation: ppm-cell-in 380ms var(--ease-out) both;
+  animation-delay: calc(140ms + var(--i, 0) * 65ms);
+}
+
+@keyframes ppm-cell-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+@media (max-width: 720px) {
+  .ppm-viewport {
+    padding: 8px;
+  }
+  .ppm-panel {
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 16px);
+    border-radius: 18px;
+  }
+  .ppm-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .ppm-head {
+    flex-direction: column;
+  }
+  .ppm-close {
+    align-self: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ppm-backdrop,
+  .ppm-panel,
+  .ppm-head,
+  .ppm-cell,
+  .ppm.is-closing .ppm-backdrop,
+  .ppm.is-closing .ppm-panel,
+  .ppm.is-closing .ppm-cell {
+    animation: none;
+  }
+}

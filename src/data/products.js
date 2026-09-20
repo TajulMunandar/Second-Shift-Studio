@@ -19,7 +19,7 @@ export const products = [
     },
     size: '5 × 5 cm',
     sides: 'double',
-    finish: { id: 'Akrilik gloss + rantai bola', en: 'Gloss acrylic + ball chain' },
+    finish: { id: 'Akrilik glossy + rantai bola', en: 'Glossy acrylic + ball chain' },
     variant: 'blue',
   },
   {
@@ -33,7 +33,7 @@ export const products = [
     },
     size: '4 × 4 cm',
     sides: 'single',
-    finish: { id: 'Akrilik gloss + ring belah', en: 'Gloss acrylic + split ring' },
+    finish: { id: 'Akrilik glossy + ring belah', en: 'Glossy acrylic + split ring' },
     variant: 'ink',
   },
   {
@@ -47,7 +47,7 @@ export const products = [
     },
     size: '6 × 6 cm',
     sides: 'double',
-    finish: { id: 'Akrilik gloss + rantai bola', en: 'Gloss acrylic + ball chain' },
+    finish: { id: 'Akrilik glossy + rantai bola', en: 'Glossy acrylic + ball chain' },
     variant: 'paper',
   },
   {
@@ -61,7 +61,7 @@ export const products = [
     },
     size: '5 × 7 cm',
     sides: 'double',
-    finish: { id: 'Akrilik gloss + kait bintang', en: 'Gloss acrylic + star clasp' },
+    finish: { id: 'Akrilik glossy + kait bintang', en: 'Glossy acrylic + star clasp' },
     variant: 'blueprint',
   },
 ]

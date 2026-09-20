@@ -3,8 +3,10 @@ import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { products, SIZE_PRESETS } from '../data/products.js'
 import { customProductLabel, sendToWhatsApp } from '../lib/whatsapp.js'
 import DesignUpload from './DesignUpload.jsx'
+import ProductPickerModal from './ProductPickerModal.jsx'
 import Reveal from './Reveal.jsx'
 import './OrderForm.css'
+import './ProductPickerModal.css'
 
 const ACCEPTED = ['image/png', 'image/jpeg', 'image/webp']
 
@@ -27,7 +29,11 @@ export default function OrderForm({ selectedProductId, onPickProduct }) {
   const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
+  const [pickerOpen, setPickerOpen] = useState(false)
+  const [pickerClosing, setPickerClosing] = useState(false)
   const summaryRef = useRef(null)
+  const triggerRef = useRef(null)
+  const pickerTimer = useRef(null)
 
   // A "Make this" tap in the gallery drops the product straight into the form.
   useEffect(() => {
@@ -42,6 +48,33 @@ export default function OrderForm({ selectedProductId, onPickProduct }) {
       if (form.imageUrl) URL.revokeObjectURL(form.imageUrl)
     }
   }, [form.imageUrl])
+
+  // Cleanup pending picker-close timer on unmount.
+  useEffect(() => () => clearTimeout(pickerTimer.current), [])
+
+  const openPicker = () => {
+    clearTimeout(pickerTimer.current)
+    setPickerClosing(false)
+    setPickerOpen(true)
+  }
+
+  const closePicker = (after) => {
+    setPickerClosing(true)
+    clearTimeout(pickerTimer.current)
+    pickerTimer.current = setTimeout(() => {
+      setPickerOpen(false)
+      setPickerClosing(false)
+      if (after) after()
+    }, 230)
+  }
+
+  const handlePickerSelect = (picked) => {
+    onPickProduct(picked.id)
+    clearError('productId')
+    closePicker(() => {
+      if (triggerRef.current) triggerRef.current.focus({ preventScroll: true })
+    })
+  }
 
   const set = (patch) => {
     setForm((f) => ({ ...f, ...patch }))
@@ -197,18 +230,6 @@ export default function OrderForm({ selectedProductId, onPickProduct }) {
                   <button
                     type="button"
                     role="radio"
-                    aria-checked={typeIs('existing')}
-                    className={`seg-opt${typeIs('existing') ? ' is-on' : ''}`}
-                    onClick={() => {
-                      set({ type: 'existing' })
-                      clearError('type')
-                    }}
-                  >
-                    {t('order.optExisting')}
-                  </button>
-                  <button
-                    type="button"
-                    role="radio"
                     aria-checked={typeIs('custom')}
                     className={`seg-opt${typeIs('custom') ? ' is-on' : ''}`}
                     onClick={() => {
@@ -217,6 +238,18 @@ export default function OrderForm({ selectedProductId, onPickProduct }) {
                     }}
                   >
                     {t('order.optCustom')}
+                  </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={typeIs('existing')}
+                    className={`seg-opt${typeIs('existing') ? ' is-on' : ''}`}
+                    onClick={() => {
+                      set({ type: 'existing' })
+                      clearError('type')
+                    }}
+                  >
+                    {t('order.optExisting')}
                   </button>
                 </div>
               </fieldset>
@@ -249,39 +282,54 @@ export default function OrderForm({ selectedProductId, onPickProduct }) {
                 )}
               </div>
 
-              {/* 3 — product / custom */}
+              {/* 3 — product picker / custom */}
               {typeIs('existing') ? (
                 <div className="field" data-field="productId">
-                  <label htmlFor="of-product">
+                  <p className="pp-label" id="of-product-label">
                     <span className="field-no" aria-hidden="true">
                       03
                     </span>{' '}
                     {t('order.productLabel')}
-                  </label>
-                  <div className="select-wrap">
-                    <select
-                      id="of-product"
-                      value={form.productId}
-                      aria-invalid={Boolean(errors.productId)}
-                      aria-describedby={errors.productId ? 'err-product' : undefined}
-                      onChange={(e) => {
-                        onPickProduct(e.target.value)
-                        clearError('productId')
-                      }}
-                    >
-                      <option value="">{t('order.productPh')}</option>
-                      {products.map((p) => (
-                        <option key={p.id} value={p.id}>
-                          #{p.no} — {p.name} ({p.size},{' '}
-                          {t(`work.sides.${p.sides}`).toLowerCase()})
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  </p>
+                  <button
+                    type="button"
+                    ref={triggerRef}
+                    className="pp-trigger"
+                    aria-haspopup="dialog"
+                    aria-expanded={pickerOpen}
+                    aria-labelledby="of-product-label"
+                    aria-invalid={Boolean(errors.productId)}
+                    aria-describedby={errors.productId ? 'err-product' : undefined}
+                    onClick={openPicker}
+                  >
+                    {product ? (
+                      <span className="pp-trigger-value">
+                        <strong>
+                          #{product.no} — {product.name}
+                        </strong>
+                        <small>
+                          {product.size} · {t(`work.sides.${product.sides}`)}
+                        </small>
+                      </span>
+                    ) : (
+                      <span className="pp-trigger-ph">{t('picker.triggerPh')}</span>
+                    )}
+                    <span className="pp-trigger-arrow" aria-hidden="true">
+                      ▾
+                    </span>
+                  </button>
                   {errors.productId && (
                     <p className="err" id="err-product" role="alert">
                       {errors.productId}
                     </p>
+                  )}
+                  {pickerOpen && (
+                    <ProductPickerModal
+                      closing={pickerClosing}
+                      selectedId={form.productId}
+                      onSelect={handlePickerSelect}
+                      onClose={() => closePicker()}
+                    />
                   )}
                 </div>
               ) : (
