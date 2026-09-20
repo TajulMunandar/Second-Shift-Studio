@@ -1,0 +1,41 @@
+.lang-switch {
+  display: inline-flex;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.lang-opt {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  padding: 0.42rem 0.7rem;
+  background: transparent;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+  min-width: 2.5rem;
+}
+
+.lang-opt + .lang-opt {
+  border-left: 2px solid var(--ink);
+}
+
+.lang-opt.is-on {
+  background: var(--blue);
+  color: var(--white);
+}
+
+.lang-opt:not(.is-on):hover {
+  background: var(--blue-soft);
+}
+
+.lang-opt:active {
+  transform: scale(0.94);
+}

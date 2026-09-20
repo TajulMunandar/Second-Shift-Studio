@@ -1,0 +1,12 @@
+.site {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  /* NOTE: no overflow clipping here — any non-visible overflow on this
+     ancestor would break position: sticky inside the order section.
+     Full-bleed decorations clip themselves (see .hero, .final). */
+}
+
+main {
+  display: block;
+}

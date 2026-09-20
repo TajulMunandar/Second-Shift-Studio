@@ -1,0 +1,249 @@
+.hero {
+  position: relative;
+  border-bottom: 2px solid var(--line);
+  overflow: clip;
+  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* faint graph-paper grid, drifting very slowly */
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(27, 52, 240, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(27, 52, 240, 0.09) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, black 30%, transparent 75%);
+  animation: grid-drift 40s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 44px 44px;
+  }
+}
+
+.hero-wrap {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hero-sticker {
+  margin-bottom: 1.25rem;
+  transform: rotate(-2deg);
+}
+
+.hero-title {
+  font-size: clamp(3.2rem, 9.5vw, 7.5rem);
+}
+
+.hero-line {
+  display: block;
+}
+
+.hero-line-outline {
+  color: transparent;
+  -webkit-text-stroke: 3px var(--blue);
+  text-stroke: 3px var(--blue);
+}
+
+@supports not (-webkit-text-stroke: 1px black) {
+  .hero-line-outline {
+    color: var(--blue);
+  }
+}
+
+.hero-sub {
+  margin-top: 1.4rem;
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  max-width: 34ch;
+  line-height: 1.5;
+}
+
+.hero-sub strong {
+  background: linear-gradient(transparent 55%, var(--blue-soft) 55%);
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.8rem;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.25rem;
+  margin: 2rem 0 0;
+  padding-top: 1.4rem;
+  border-top: 2px solid var(--ink);
+}
+
+.hero-meta div {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-meta dt {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.hero-meta dd {
+  margin: 0.15rem 0 0;
+  font-weight: 700;
+}
+
+/* staggered entrance — medium pace, one after another */
+.hero [data-anim] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 600ms var(--ease-out);
+}
+
+.hero.is-loaded [data-anim='1'] { transition-delay: 60ms; }
+.hero.is-loaded [data-anim='2'] { transition-delay: 140ms; }
+.hero.is-loaded [data-anim='3'] { transition-delay: 220ms; }
+.hero.is-loaded [data-anim='4'] { transition-delay: 300ms; }
+.hero.is-loaded [data-anim='5'] { transition-delay: 400ms; }
+.hero.is-loaded [data-anim='6'] { transition-delay: 500ms; }
+.hero.is-loaded [data-anim='7'] { transition-delay: 600ms; }
+
+.hero.is-loaded [data-anim] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- visual cluster -------------------------------------------------------- */
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 420px;
+}
+
+.hero-key {
+  margin: 0;
+  position: relative;
+}
+
+.hero-key .keychain-fig {
+  width: clamp(190px, 22vw, 260px);
+  height: auto;
+  filter: drop-shadow(8px 8px 0 rgba(17, 17, 17, 0.9));
+  transition: transform var(--t-med) var(--ease-snap);
+}
+
+.hero-key.main:hover .keychain-fig {
+  transform: rotate(-4deg) translateY(-8px);
+}
+
+.hero-key.alt {
+  position: absolute;
+  right: -0.5rem;
+  bottom: -0.5rem;
+  transform: rotate(9deg);
+}
+
+.hero-key.alt .keychain-fig {
+  width: clamp(120px, 14vw, 160px);
+  transition: transform var(--t-med) var(--ease-snap);
+}
+
+.hero-key.alt:hover .keychain-fig {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.hero-tag {
+  position: absolute;
+  white-space: nowrap;
+}
+
+.tag-a {
+  left: -2.6rem;
+  bottom: 3.2rem;
+  transform: rotate(-6deg);
+}
+
+.tag-b {
+  right: 0.4rem;
+  top: -0.6rem;
+  transform: rotate(5deg);
+}
+
+.tag-c {
+  left: 0.2rem;
+  top: 0.6rem;
+  transform: rotate(-4deg);
+  background: var(--white);
+  border-color: var(--ink);
+  color: #000000;
+}
+
+/* gentle float on the whole cluster — slow, ambient */
+.hero.is-loaded .hero-key.main {
+  animation: hero-float 7s ease-in-out 1.2s infinite;
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-ticker {
+  position: relative;
+  transform: rotate(-1deg);
+  width: 102%;
+  margin-left: -1%;
+  margin-bottom: 1.6rem;
+}
+
+@media (max-width: 900px) {
+  .hero-wrap {
+    grid-template-columns: 1fr;
+  }
+  .hero-visual {
+    min-height: 360px;
+    order: 2;
+  }
+  .tag-a {
+    left: 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas .btn {
+    flex: 1 1 100%;
+  }
+  .hero-meta {
+    gap: 1rem 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero [data-anim] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-grid-bg,
+  .hero.is-loaded .hero-key.main {
+    animation: none;
+  }
+}

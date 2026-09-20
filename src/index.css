@@ -1,0 +1,285 @@
+/* ==========================================================================
+   SECOND SHIFT STUDIO — design system
+   "indie creative studio x avatar culture x physical collectible"
+   ========================================================================== */
+
+:root {
+  --blue: #1b34f0;
+  --blue-deep: #0f22a8;
+  --blue-soft: #e4e8ff;
+  --ink: #111111;
+  --paper: #f5f5f2;
+  --white: #ffffff;
+  --gray: #d9d9d9;
+  --gray-dark: #6f6f6a;
+  --line: #111111;
+
+  --font-display: 'Archivo Black', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+  --space-section: clamp(4.5rem, 10vw, 8.5rem);
+  --wrap: 1200px;
+
+  /* motion hierarchy — fast: controls / medium: cards / slow: scenery */
+  --t-fast: 120ms;
+  --t-med: 300ms;
+  --t-slow: 700ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--blue);
+  color: var(--white);
+}
+
+/* visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* scroll anchor offset for the sticky nav */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+/* --- layout shell ------------------------------------------------------ */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: clamp(1.125rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding-block: var(--space-section);
+  position: relative;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: '';
+  width: 2rem;
+  height: 2px;
+  background: var(--blue);
+  flex: none;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* --- buttons: fast, tactile ------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.95rem 1.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ink);
+  transition:
+    transform var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    background-color var(--t-fast) ease,
+    color var(--t-fast) ease;
+  user-select: none;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--blue-deep);
+  border-color: var(--ink);
+}
+
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn .arr {
+  font-weight: 400;
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.btn:hover .arr {
+  transform: translateX(4px);
+}
+
+/* --- language swap pulse: subtle, no remount, no blink ------------------------ */
+main {
+  transition: opacity 180ms ease;
+}
+
+html.is-switching main {
+  opacity: 0.55;
+}
+
+/* --- scroll reveal: slow --------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--t-slow) var(--ease-out),
+    transform var(--t-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- marquee ticker ---------------------------------------------------------- */
+.ticker {
+  overflow: hidden;
+  border-block: 2px solid var(--ink);
+  background: var(--blue);
+  color: var(--white);
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 26s linear infinite;
+}
+
+.ticker span {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.7rem 0;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* --- sticker chip -------------------------------------------------------------- */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 0.4rem 0.95rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.sticker-blue {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: var(--white);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ticker-track {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .btn,
+  .btn .arr {
+    transition: none;
+  }
+}

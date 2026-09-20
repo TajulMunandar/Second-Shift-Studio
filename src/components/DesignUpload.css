@@ -1,0 +1,425 @@
+/* ==========================================================================
+   DesignUpload — step 04 "Upload your design"
+   BLACK + WHITE + #1B34F0 / hard shadow / subtle checkerboard
+   ========================================================================== */
+
+.du-field {
+  min-width: 0;
+}
+
+/* --- section header ----------------------------------------------------------- */
+.du-head {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin: 0 0 1.5rem;
+  font-weight: 700;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.du-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 11px;
+}
+
+/* --- container ------------------------------------------------------------------ */
+.du {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+  background: #f7f7f4;
+  border: 2px solid var(--blue);
+  border-radius: 24px;
+  box-shadow: 0 8px 0 #111111;
+  overflow: hidden;
+  cursor: pointer;
+  animation: du-in 450ms var(--ease-out) both;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    background-color 150ms ease;
+}
+
+@keyframes du-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+label.du {
+  margin: 0;
+}
+
+label.du:hover {
+  transform: translateY(-2px);
+}
+
+label.du:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 #111111;
+}
+
+.du:focus-within {
+  box-shadow: 0 8px 0 var(--blue);
+}
+
+.du.is-drag {
+  transform: scale(1.01);
+  background: #e7ebff;
+}
+
+/* --- drop zone -------------------------------------------------------------------- */
+.du-drop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  flex: none;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, #efefeb 25%, transparent 25%),
+    linear-gradient(-45deg, #efefeb 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #efefeb 75%),
+    linear-gradient(-45deg, transparent 75%, #efefeb 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  border-bottom: 2px solid var(--blue);
+}
+
+.du.is-drag .du-drop {
+  background-color: #dfe4ff;
+}
+
+.du-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  box-shadow: 0 4px 0 var(--ink);
+  color: var(--blue);
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+label.du:hover .du-plus {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 0 var(--ink);
+}
+
+label.du:active .du-plus {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--ink);
+}
+
+.du-dropit {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem 0.35rem 1.05rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* --- lower information area ---------------------------------------------------------- */
+.du-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  flex: 1;
+  padding: 1.625rem 1.5rem 1.875rem;
+  text-align: center;
+}
+
+.du-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 4.5vw, 2.125rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 100%;
+}
+
+.du-browse {
+  font-size: 1rem;
+  color: #55554f;
+}
+
+.du-browse u {
+  color: var(--blue);
+  font-weight: 700;
+  text-underline-offset: 3px;
+}
+
+.du-or {
+  color: #8d8d87;
+}
+
+.du-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.du-badges i {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.du-badges i.du-badge-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+
+/* hidden-but-accessible file input */
+.du-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- uploaded state --------------------------------------------------------------------- */
+.du-done {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  cursor: default;
+  animation: du-pop 250ms var(--ease-out) both;
+}
+
+@keyframes du-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.du-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, #efefeb 25%, transparent 25%),
+    linear-gradient(-45deg, #efefeb 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #efefeb 75%),
+    linear-gradient(-45deg, transparent 75%, #efefeb 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  border-right: 2px solid var(--blue);
+  min-width: 0;
+}
+
+.du-preview img {
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+}
+
+.du-file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 1.625rem;
+}
+
+.du-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.du-name {
+  margin: 0.35rem 0 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.du-size {
+  margin: 0;
+  color: #55554f;
+  font-weight: 600;
+}
+
+.du-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem 1rem;
+  margin-top: 0.9rem;
+}
+
+.du-change {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 3px 3px 0 var(--blue);
+  padding: 0.6rem 1.25rem;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.du-change:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--blue);
+}
+
+.du-change:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 var(--blue);
+}
+
+.du-remove {
+  background: none;
+  border: none;
+  padding: 0.6rem 0.25rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b42318;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* --- inline validation ---------------------------------------------------------------------- */
+.du-err {
+  margin: 0.875rem 0 0;
+  font-size: 0.92rem;
+  color: #b42318;
+}
+
+.du-err strong {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* --- whatsapp notice ---------------------------------------------------------------------------- */
+.du-notice {
+  margin-top: 1.25rem;
+  border-left: 3px solid var(--blue);
+  padding-left: 1rem;
+  color: #66665f;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.du-notice strong {
+  display: block;
+  color: var(--ink);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+
+.du-notice p {
+  margin: 0;
+}
+
+/* --- responsive -------------------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .du-no {
+    width: 34px;
+    height: 34px;
+    font-size: 0.88rem;
+    border-radius: 10px;
+  }
+  .du-drop {
+    height: 150px;
+  }
+  .du-plus {
+    width: 56px;
+    height: 56px;
+    font-size: 1.7rem;
+  }
+  .du-info {
+    padding: 1.375rem 1.125rem 1.625rem;
+  }
+  .du-done {
+    grid-template-columns: 1fr;
+  }
+  .du-preview {
+    border-right: none;
+    border-bottom: 2px solid var(--blue);
+  }
+  .du-preview img {
+    height: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .du,
+  .du-done {
+    animation: none;
+  }
+  label.du:hover,
+  label.du:active,
+  .du.is-drag {
+    transform: none;
+  }
+}
